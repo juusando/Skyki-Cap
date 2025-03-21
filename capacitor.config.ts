@@ -1,17 +1,17 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'Appzz',
+  appId: 'com.zillapp.skykii',
+  appName: 'Skyki',
   webDir: 'www',
   server: {
     androidScheme: 'https'
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 1500,
+      launchShowDuration: 2000,
       launchAutoHide: true,
-      backgroundColor: "#3880FF",
+      backgroundColor: "73F4CB",
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP",
       showSpinner: false,

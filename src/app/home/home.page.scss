@@ -8,7 +8,7 @@ ion-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #E62762;
+  background-color: #73F4CB;
 }
 
 #container {
@@ -32,24 +32,24 @@ ion-content {
 app-icon {
   width: 160px;
   height: 160px;
-  stroke-width: 1.1px;
-  color: #ffffff;
+  stroke-width: 7px;
+  color: #202534;
 }
 
 h1 {
-  color: #fff;
+  color: #202534;
   font-weight: 900;
   line-height: 90%;
-  font-size: 68px;
+  font-size: 60px;
   margin: 0;
   font-family: 'Outfit', sans-serif;
 }
 
 h2 {
-  color: #fff;
-  font-weight: 500;
+  color: #20253440;
+  font-weight: 900;
   line-height: 90%;
-  font-size: 44px;
+  font-size: 32px;
   margin: 0;
   font-family: 'Outfit', sans-serif;
 }
