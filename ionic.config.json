@@ -1,0 +1,7 @@
+{
+  "name": "Appzz",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
