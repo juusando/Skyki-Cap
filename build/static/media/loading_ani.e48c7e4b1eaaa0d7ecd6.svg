@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><style>
+@keyframes a1_t { 0% { transform: translate(12px,12px); } 100% { transform: translate(12px,12px); } }
+@keyframes a0_t { 0% { transform: rotate(0deg) translate(-10px,-12px); } 71.428% { transform: rotate(360deg) translate(-10px,-12px); animation-timing-function: cubic-bezier(0,0,1,1); } 100% { transform: rotate(720deg) translate(-10px,-12px); } }
+</style><g style="animation: 1.4s linear infinite both a1_t;"><path d="M14.7 1.6l1.3 4l-4 1.4m-6.7 15.4l-1.4-4l4-1.4m-6.5-2.5c-0.9-3-0.2-6.5 2.2-8.9c3.4-3.3 8.6-3.5 12.2-0.5m2.8 4.4c.9 3 .2 6.5-2.2 8.9c-3.4 3.3-8.7 3.5-12.3 .4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(12,12) translate(-10,-12)" style="animation: 1.4s linear infinite both a0_t;"/></g></svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <style>
+@keyframes a0_t { 0% { transform: translate(-2px,0px); } 50% { transform: translate(21px,0px); } 100% { transform: translate(21px,0px); } }
+@keyframes a1_t { 0% { transform: translate(-21.1px,0px); } 50% { transform: translate(-21.1px,0px); } 100% { transform: translate(-1.7px,0px); } }
+@keyframes a1_v { 0% { visibility: hidden; animation-timing-function: steps(1); } 50% { visibility: visible; animation-timing-function: steps(1); } 60% { visibility: visible; animation-timing-function: steps(1); } 100% { visibility: visible; animation-timing-function: steps(1); } }
+    </style>
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M10.5 3l9.5 9m0 0l-9.5 9m9.5-9h-16" transform="translate(10,12) translate(-12,-12)" style="animation: 1s linear infinite both a0_t;"/>
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M10.5 3l9.5 9m0 0l-9.5 9m9.5-9h-16" visibility="hidden" transform="translate(-9.1,12) translate(-12,-12)" style="animation: 1s linear infinite both a1_t, 1s linear infinite forwards a1_v;"/>
+</svg>

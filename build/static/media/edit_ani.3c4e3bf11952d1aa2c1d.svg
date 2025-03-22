@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Keyshape -->
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <style>
+@keyframes a1_t { 0% { transform: translate(3.139673px,20.931152px); } 16.6666% { transform: translate(3.139673px,21.931152px); } 58.3333% { transform: translate(26.225502px,21.931152px); } 66.6666% { transform: translate(-14.405558px,21.931152px); } 83.3333% { transform: translate(3.13967px,21.9312px); } 100% { transform: translate(3.13967px,20.9312px); animation-timing-function: cubic-bezier(0,0,0.375,0.85); } }
+@keyframes a0_t { 0% { transform: rotate(0deg) translate(-3.139673px,-20.931152px); } 16.6666% { transform: rotate(-16.855807deg) translate(-3.139673px,-20.931152px); } 83.3333% { transform: rotate(-16.855807deg) translate(-3.139673px,-20.931152px); } 100% { transform: rotate(0deg) translate(-3.139673px,-20.931152px); animation-timing-function: cubic-bezier(0,0,0.39,0.87); } }
+@keyframes a0_v { 0% { visibility: visible; animation-timing-function: steps(1); } 58.3333% { visibility: hidden; animation-timing-function: steps(1); } 66.6667% { visibility: visible; animation-timing-function: steps(1); } 100% { visibility: visible; animation-timing-function: steps(1); } }
+@keyframes Line_t { 0% { transform: translate(3.509046px,21.647287px); } 100% { transform: translate(13.509046px,21.647287px); } }
+@keyframes Line_d { 0% { d: path('M0.215635,0L0.420748,0'); } 16.6667% { d: path('M0.215635,0L0.420748,0'); } 58.3333% { d: path('M0.215635,0L16.0913,0'); } 100% { d: path('M23.1691,0L24.8039,0'); } }
+    </style>
+    <g style="animation: 1.2s linear both a1_t;">
+        <path stroke=" currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.794,6.114C13.488,8.622,15.43,10.602,17.923,11.304M14.283,4.391L4.185,14.392C3.857,14.724,3.545,15.371,3.48,15.836L3.02,19.121C2.857,20.315,3.677,21.145,4.857,20.979L8.104,20.514C8.563,20.448,9.202,20.133,9.53,19.801L19.628,9.799C21.088,8.323,21.793,6.597,19.628,4.407C17.464,2.201,15.758,2.897,14.283,4.391Z" visibility="visible" transform="translate(3.13967,20.9312) translate(-3.13967,-20.9312)" style="animation: 1.2s linear both a0_t, 1.2s linear forwards a0_v;"/>
+    </g>
+    <path id="Line" d="M0.215635,0L0.420748,0" stroke="currentColor" fill="none" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" transform="translate(3.50905,21.6473)" style="animation: 1.2s linear both Line_t, 1.2s linear both Line_d;"/>
+</svg>
