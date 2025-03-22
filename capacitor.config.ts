@@ -1,24 +1,13 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.zillapp.skykii',
+  appId: 'com.zillapp.skyki',
   appName: 'Skyki',
-  webDir: 'www',
-  server: {
-    androidScheme: 'https'
-  },
-  plugins: {
-    SplashScreen: {
-      launchShowDuration: 2000,
-      launchAutoHide: true,
-      backgroundColor: "73F4CB",
-      androidSplashResourceName: "splash",
-      androidScaleType: "CENTER_CROP",
-      showSpinner: false,
-      splashFullScreen: true,
-      splashImmersive: true
-    }
-  }
+  webDir: 'build',
+  // server: {
+  //   url: 'http://192.168.0.114:3000',
+  //   cleartext: true
+  // }
 };
 
 export default config;

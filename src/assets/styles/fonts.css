@@ -1,0 +1,87 @@
+/*  - - - - - - - Outfit Fonts  - - - - - - -  - - - - - - -  - - - - - - - */
+@font-face {
+  font-family: 'outfit-l';
+  src: url('../fonts/Outfit-L.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'outfit-r';
+  src: url('../fonts/Outfit-R.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'outfit-m';
+  src: url('../fonts/Outfit-M.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'outfit-b';
+  src: url('../fonts/Outfit-B.ttf') format('truetype');
+  font-style: normal;
+}
+
+/*  - - - - - - - M Plus Fonts - - - - - - -  - - - - - - -  - - - - - - -  */
+@font-face {
+  font-family: 'mplus-r';
+  src: url('../fonts/Mplus-R.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'mplus-m';
+  src: url('../fonts/Mplus-M.ttf') format('truetype');
+  font-style: normal;
+}
+
+/*  - - - - - - - Cera Fonts  - - - - - - -  - - - - - - -  - - - - - - - */
+@font-face {
+  font-family: 'cera-r';
+  src: url('../fonts/Cera-R.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'cera-m';
+  src: url('../fonts/Cera-M.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'cera-sb';
+  src: url('../fonts/Cera-SB.ttf') format('truetype');
+  font-style: normal;
+}
+
+/* - - - - - - - Bebas Fonts  - - - - - - -  - - - - - - -  - - - - - - -  */
+@font-face {
+  font-family: 'bebas-l';
+  src: url('../fonts/Bebas-L.otf') format('opentype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bebas-r';
+  src: url('../fonts/Bebas-R.otf') format('opentype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bebas-m';
+  src: url('../fonts/Bebas-M.otf') format('opentype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bebas-bd';
+  src: url('../fonts/Bebas-Bd.otf') format('opentype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bebas-bk';
+  src: url('../fonts/Bebas-Bk.otf') format('opentype');
+  font-style: normal;
+} 

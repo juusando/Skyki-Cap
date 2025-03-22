@@ -1,7 +1,0 @@
-{
-  "name": "Skyki",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
