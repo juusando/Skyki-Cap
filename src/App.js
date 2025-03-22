@@ -5,16 +5,18 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <SvgIcon name="logo" /> */}
+      <div className="icon-examples">
+          <SvgIcon name="search" className={"iconz"}/>
+          <SvgIcon name="username"/>
+          <SvgIcon name="cal" />
+          <SvgIcon name="users" />
+          <SvgIcon name="user_bb" />
+          <SvgIcon name="windows" />
+        </div>
         <p>
           Edit src/App.js and save to reload.
         </p>
-        <div className="icon-examples">
-          <SvgIcon name="search" />
-          <SvgIcon name="user"/>
-          <SvgIcon name="cal" />
-          <SvgIcon name="windows" />
-        </div>
+
         <a
           className="App-link"
           href="https://reactjs.org"

@@ -62,10 +62,28 @@ html, body, #root {
 
 
 .svg-icon {
-  width: 32px;
-  height: 32px;
   display: inline-block;
-  /* fill: currentColor; */
+  width: 120px;
+  /* height: 40px; */
+  /* color: #2BDDB5; */
   vertical-align: middle;
-
+  stroke-width: 1px;
 }
+
+.iconz{
+color: pink;
+}
+
+/* .icon-error {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  position: relative;
+  text-align: center;
+  font-size: 10px;
+  line-height: 24px;
+  color: #999;
+  overflow: hidden;
+} */
