@@ -38,6 +38,22 @@ const WeatherDetails = ({ current, daily, units, speedUnit }) => {
       </div>
 
       <div className="detail-item">
+        <div className="detail-icon"><SvgIcon name="humidity"  /></div>
+        <div className="detail-text">
+          {current.relative_humidity_2m}
+          <span className="detail-value">{units.relative_humidity_2m}</span>
+        </div>
+      </div>
+            
+      <div className="detail-item">
+        <div className="detail-icon"><SvgIcon name="prec" /></div>
+        <div className="detail-text">
+          {current.precipitation_probability ?? 0} 
+          <span className="detail-value">%</span>
+        </div>
+      </div>
+
+      <div className="detail-item">
         <div className="detail-icon"><SvgIcon name="wind-speed" /></div>
         <div className="detail-text">
           {getSpeed(current.wind_speed_10m)} 
@@ -49,22 +65,8 @@ const WeatherDetails = ({ current, daily, units, speedUnit }) => {
         <div className="detail-icon wind-box"><SvgIcon name="wind-direction" style={{ transform: `rotate(${current.wind_direction_10m - 45}deg)` }} /></div>
        {getWindDirection(current.wind_direction_10m)}
       </div>
-      
-      <div className="detail-item">
-        <div className="detail-icon"><SvgIcon name="prec" /></div>
-        <div className="detail-text">
-          {current.precipitation_probability ?? 0} 
-          <span className="detail-value">%</span>
-        </div>
-      </div>
-      
-      <div className="detail-item">
-        <div className="detail-icon"><SvgIcon name="humidity"  /></div>
-        <div className="detail-text">
-          {current.relative_humidity_2m}
-          <span className="detail-value">{units.relative_humidity_2m}</span>
-        </div>
-      </div>
+
+
     </div>
   );
 };

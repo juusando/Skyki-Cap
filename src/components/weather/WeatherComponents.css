@@ -40,7 +40,7 @@
 .country-name {
   font-size: 19px;
   font-weight: 500;
-  color: #878BBA90; /* Muted purple-grey */
+  color: #9195C1; /* Muted purple-grey */
   margin-top: 2px;
 }
 
@@ -54,7 +54,7 @@
 .date-text {
   font-family: 'outfit-r';
   font-size: 18px;
-  color: #878BBA90;
+  color: #9195C1;
   margin: 0;
 }
 
@@ -99,7 +99,7 @@
   font-family: 'outfit-r';
   font-size: 24px;
   line-height: .8;
-  color: #878BBA99;
+  color: #9195C1;
   margin: 0;
   font-weight: normal;
   /* background-color: beige; */
@@ -145,7 +145,7 @@
   font-family: 'outfit-r';
   font-size: 28px;
   line-height: .8;
-  color: #878BBA99;
+  color: #9195C1;
   margin-left: 7px;
 }
 
@@ -188,7 +188,7 @@
   align-items: center;
   justify-items: start;
   justify-content: center;
-  color: #878BBA80;
+  color: #9195C1;
   overflow: hidden;
   flex: 1;
   height: 36px;
@@ -238,7 +238,7 @@
   font-family: 'outfit-m';
   font-size: 13px;
   line-height: 2.2;
-  color: #878BBA90;
+  color: #9195C1;
 }
 
 .forecast-temp-high {
@@ -253,12 +253,12 @@
   font-family: 'bebas-r';
   font-size: 20px;
   line-height: .8;
-  color: #878BBA99;
+  color: #9195C1;
   margin-left: 2px;
 }
 
 .forecast-icon {
-  color: #878BBA60;
+  color: #9195C1;
     svg{
   width: 26px;
   height: 26px;

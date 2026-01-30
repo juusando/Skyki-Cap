@@ -6,6 +6,7 @@ import './components/weather/WeatherComponents.css';
 import WeatherPage from './components/weather/WeatherPage';
 import SearchPage from './components/search/SearchPage';
 import SettingsPage from './components/settings/SettingsPage';
+import ListPage from './components/list/ListPage';
 import { getCoordinates, getWeather, getCityNameFromCoordinates } from './services/weatherService';
 
 const CITIES = [
@@ -28,6 +29,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [showSearch, setShowSearch] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showList, setShowList] = useState(false);
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState({
     useCurrentLocation: false,
@@ -262,6 +264,11 @@ function App() {
       }
     }
   };
+  
+  const handleSelectList = (index) => {
+    setCurrentPage(index);
+    setShowList(false);
+  };
 
   if (loading) return <div className="App"><main className="App-main">Loading...</main></div>;
 
@@ -311,14 +318,22 @@ function App() {
           ))}
         </div>
 
-        {/* Right Button (Search) */}
-        <button 
-          className="footer-btn" 
-          onClick={() => setShowSearch(true)}
-          aria-label="Add Location"
-        >
-          <SvgIcon name="add" />
-        </button>
+        <div style={{ display: 'flex', gap: '0px', pointerEvents: 'auto' }}>
+          <button 
+            className="footer-btn" 
+            onClick={() => setShowList(true)}
+            aria-label="List View"
+          >
+            <SvgIcon name="hum2" />
+          </button>
+          <button 
+            className="footer-btn" 
+            onClick={() => setShowSearch(true)}
+            aria-label="Add Location"
+          >
+            <SvgIcon name="add" />
+          </button>
+        </div>
       </footer>
 
       {/* Search Overlay */}
@@ -337,6 +352,16 @@ function App() {
           onClose={() => setShowSettings(false)}
         />
       )}
+      
+      {showList && (
+        <ListPage 
+          cities={cities}
+          settings={settings}
+          onClose={() => setShowList(false)}
+          onSelectCity={handleSelectList}
+        />
+      )}
+
     </div>
   );
 }
