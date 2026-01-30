@@ -1,73 +1,34 @@
 
-import { 
-  Sun, 
-  CloudSun, 
-  Cloud, 
-  CloudFog, 
-  CloudDrizzle, 
-  CloudRain, 
-  CloudSnow, 
-  CloudLightning,
-  Moon,
-  CloudMoon
-} from 'lucide-react';
-
-export const getWeatherIcon = (code, isDay = 1) => {
+export const getWeatherIconName = (code, isDay = 1) => {
   // WMO Weather interpretation codes (WW)
   // https://open-meteo.com/en/docs
   
-  const iconProps = {
-    size: 24,
-    strokeWidth: 2,
-    className: 'weather-icon'
-  };
+  // Convert code to string to match filename
+  const codeStr = code.toString();
 
-  // Clear sky
-  if (code === 0) {
-    return isDay ? <Sun {...iconProps} /> : <Moon {...iconProps} />;
-  }
-  
-  // Mainly clear, partly cloudy, and overcast
-  if (code === 1 || code === 2 || code === 3) {
-    return isDay ? <CloudSun {...iconProps} /> : <CloudMoon {...iconProps} />;
-  }
-  
-  // Fog
-  if (code === 45 || code === 48) {
-    return <CloudFog {...iconProps} />;
-  }
-  
-  // Drizzle
-  if (code >= 51 && code <= 57) {
-    return <CloudDrizzle {...iconProps} />;
-  }
-  
-  // Rain
-  if (code >= 61 && code <= 67) {
-    return <CloudRain {...iconProps} />;
-  }
-  
-  // Snow
-  if (code >= 71 && code <= 77) {
-    return <CloudSnow {...iconProps} />;
-  }
-  
-  // Rain showers
-  if (code >= 80 && code <= 82) {
-    return <CloudRain {...iconProps} />;
-  }
-  
-  // Snow showers
-  if (code >= 85 && code <= 86) {
-    return <CloudSnow {...iconProps} />;
-  }
-  
-  // Thunderstorm
-  if (code >= 95 && code <= 99) {
-    return <CloudLightning {...iconProps} />;
+  // List of available icons in assets/icons/ based on LS
+  const availableIcons = [
+    '0', '1', '2', '3', 
+    '45', '48', 
+    '51', '53', '55', '56', '57', 
+    '61', '66', '67', 
+    '71', '73', '75', '77', 
+    '80', '81', '82', '84', '85', '86', 
+    '95', '96', '99'
+  ];
+
+  // Exact match
+  if (availableIcons.includes(codeStr)) {
+    return codeStr;
   }
 
-  return <Cloud {...iconProps} />;
+  // Mappings for missing codes
+  switch (code) {
+    case 63: return '61'; // Moderate rain -> Slight rain
+    case 65: return '61'; // Heavy rain -> Slight rain
+    // Add other mappings if necessary
+    default: return '0'; // Default to clear sky
+  }
 };
 
 export const getWeatherDescription = (code) => {

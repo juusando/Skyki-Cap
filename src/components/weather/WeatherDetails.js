@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { Wind, Droplets, Umbrella, Navigation, Sunrise, Sunset } from 'lucide-react';
 import { getWindDirection } from './weatherUtils';
+import SvgIcon from '../SvgIcon';
 import '../weather/WeatherComponents.css';
 
-const WeatherDetails = ({ current, daily, units }) => {
+const WeatherDetails = ({ current, daily, units, speedUnit }) => {
   if (!current || !daily) return null;
 
   const formatTime = (isoString) => {
@@ -16,36 +16,54 @@ const WeatherDetails = ({ current, daily, units }) => {
     });
   };
 
+  const getSpeed = (speed) => {
+    if (speedUnit === 'mph') {
+       return Math.round(speed / 1.60934);
+    }
+    return speed;
+  };
+  
+  const speedUnitStr = speedUnit === 'mph' ? 'mph' : 'km/h';
+
   return (
     <div className="weather-details-row">
       <div className="detail-item">
-        <div className="detail-icon"><Sunrise size={20} /></div>
-        <span className="detail-value">{formatTime(daily.sunrise[0])}</span>
+        <div className="detail-icon"><SvgIcon name="sunrise" /></div>
+        {formatTime(daily.sunrise[0])}
       </div>
 
       <div className="detail-item">
-        <div className="detail-icon"><Sunset size={20} /></div>
-        <span className="detail-value">{formatTime(daily.sunset[0])}</span>
+        <div className="detail-icon"><SvgIcon name="sunset"  /></div>
+       {formatTime(daily.sunset[0])}
       </div>
 
       <div className="detail-item">
-        <div className="detail-icon"><Wind size={20} /></div>
-        <span className="detail-value">{current.wind_speed_10m}{units.wind_speed_10m}</span>
+        <div className="detail-icon"><SvgIcon name="wind-speed" /></div>
+        <div className="detail-text">
+          {getSpeed(current.wind_speed_10m)} 
+          <span className="detail-value">{speedUnitStr}</span>
+        </div>
       </div>
       
       <div className="detail-item">
-        <div className="detail-icon"><Navigation size={20} style={{ transform: `rotate(${current.wind_direction_10m - 45}deg)` }} /></div>
-        <span className="detail-value">{getWindDirection(current.wind_direction_10m)}</span>
+        <div className="detail-icon wind-box"><SvgIcon name="wind-direction" style={{ transform: `rotate(${current.wind_direction_10m - 45}deg)` }} /></div>
+       {getWindDirection(current.wind_direction_10m)}
       </div>
       
       <div className="detail-item">
-        <div className="detail-icon"><Umbrella size={20} /></div>
-        <span className="detail-value">{current.precipitation_probability ?? 0}%</span>
+        <div className="detail-icon"><SvgIcon name="prec" /></div>
+        <div className="detail-text">
+          {current.precipitation_probability ?? 0} 
+          <span className="detail-value">%</span>
+        </div>
       </div>
       
       <div className="detail-item">
-        <div className="detail-icon"><Droplets size={20} /></div>
-        <span className="detail-value">{current.relative_humidity_2m}{units.relative_humidity_2m}</span>
+        <div className="detail-icon"><SvgIcon name="humidity"  /></div>
+        <div className="detail-text">
+          {current.relative_humidity_2m}
+          <span className="detail-value">{units.relative_humidity_2m}</span>
+        </div>
       </div>
     </div>
   );

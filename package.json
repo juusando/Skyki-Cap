@@ -6,6 +6,7 @@
     "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^7.1.0",
     "@capacitor/core": "^7.1.0",
+    "@capacitor/geolocation": "^7.1.7",
     "@capacitor/ios": "^7.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

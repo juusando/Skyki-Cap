@@ -1,10 +1,16 @@
 
 import React from 'react';
-import { getWeatherIcon } from './weatherUtils';
+import { getWeatherIconName } from './weatherUtils';
+import SvgIcon from '../SvgIcon';
 import '../weather/WeatherComponents.css';
 
-const WeeklyForecast = ({ daily }) => {
+const WeeklyForecast = ({ daily, tempUnit }) => {
   if (!daily) return null;
+
+  const convertTemp = (t) => {
+    if (tempUnit === 'F') return (t * 1.8) + 32;
+    return t;
+  };
 
   // Create an array of day objects
   const days = daily.time.map((time, index) => {
@@ -25,10 +31,10 @@ const WeeklyForecast = ({ daily }) => {
         return (
           <div key={index} className="forecast-item">
             <span className="forecast-day">{dayName}</span>
-            <span className="forecast-temp-high">{Math.round(day.maxTemp)}°</span>
-            <span className="forecast-temp-low">{Math.round(day.minTemp)}°</span>
+            <span className="forecast-temp-high">{Math.round(convertTemp(day.maxTemp))}°</span>
+            <span className="forecast-temp-low">{Math.round(convertTemp(day.minTemp))}°</span>
             <div className="forecast-icon">
-              {React.cloneElement(getWeatherIcon(day.weatherCode, 1), { size: 24 })}
+              <SvgIcon name={getWeatherIconName(day.weatherCode, 1)} className="weather-icon small" style={{ width: 24, height: 24 }} />
             </div>
           </div>
         );

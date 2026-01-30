@@ -14,7 +14,7 @@ html, body, #root {
 
 .App {
   text-align: center;
-  /* background-color: #1B2130; */
+  background-color: #1B2130;
   height: 100%;
   position: fixed;
   top: 0;
@@ -51,10 +51,9 @@ html, body, #root {
   align-items: center;
   justify-content: flex-start;
   color: white;
-  padding: 20px 8px;
+  padding: 20px 8px 0;
   /* Add safe area inset to bottom padding plus extra space */
-  padding-bottom: calc(56px + env(safe-area-inset-bottom));
-  overflow-y: auto;
+  /* padding-bottom: calc(80px + env(safe-area-inset-bottom));  */
   -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
 }
 
@@ -68,12 +67,12 @@ html, body, #root {
   text-align: center;
 }
 
-.svg-icon {
+/* .svg-icon {
   display: inline-block;
   width: 120px;
   vertical-align: middle;
   stroke-width: 1px;
-}
+} */
 
 .logo{
   width: clamp(60px, 8vw, 120px);
@@ -96,4 +95,229 @@ html, body, #root {
 
 .error {
   color: #ff6b6b;
+}
+
+/* Slider & Layout */
+.weather-slider {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0px;
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  margin-bottom: 32px;
+  /* margin: 0 auto; */
+}
+
+/* Footer Navigation */
+.app-footer {
+  /* position: fixed; */
+  bottom: calc(10px + env(safe-area-inset-bottom));
+  left: 20px;
+  right: 20px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  pointer-events: none; /* Let clicks pass through empty spaces */
+  background-color: transparent;
+  padding: 0 8px;
+}
+
+/* Pagination Dots */
+.pagination-dots {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  pointer-events: auto;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color:#878BBA35;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background-color: #878BBA;
+  transform: scale(1.1);
+}
+
+/* Footer Buttons (Left/Right) */
+.footer-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #878BBA80;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  pointer-events: auto;
+
+  svg{
+    width: 36px;
+    stroke-width: 1.4;
+  }
+}
+
+.footer-btn:active {
+  transform: scale(0.95);
+}
+
+/* Search Page Overlay */
+.search-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1B2130;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #878BBA30;
+}
+
+.search-input-wrapper {
+  /* flex: 1; */
+  /* position: relative; */
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 6px;
+  background-color: #878BBA25;
+  border-radius: 12px;
+  padding: 0 8px;
+  width: 80%;
+  height: 46px;
+}
+
+.icon-input {
+  min-width: 24px;
+  height: 24px;
+  color: #878BBA;
+  /* background-color: aliceblue; */
+
+}
+
+.search-input-wrapper input {
+  height: 44px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  font-family: inherit;
+  width: 88%;
+}
+
+.clear {
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: transparent;
+  border: none;
+  color: #878BBA;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.search-results {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px;
+}
+
+.search-message {
+  padding: 24px 0;
+  text-align: center;
+  color: #878BBA80;
+  font-size: 15px;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 0px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+
+  svg{
+    min-width: 22px;
+    height: 22px;
+    color: #878BBA40;
+    stroke-width: 1.6;
+  }
+}
+
+.results-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  width: 100%;
+}
+
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 2px;
+  width: 100%;
+  flex: 1;
+  min-width: 0; /* Essential for text truncation in flex child */
+}
+
+.result-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: left;
+}
+
+.result-detail {
+  font-size: 15px;
+  color: #878BBA90;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: left;
 }

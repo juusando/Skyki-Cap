@@ -15,13 +15,63 @@ export const getCoordinates = async (city) => {
     }
     const data = await response.json();
     if (data.results && data.results.length > 0) {
-      const { latitude, longitude, name, country, timezone } = data.results[0];
-      return { latitude, longitude, name, country, timezone };
+      const { latitude, longitude, name, country, timezone, country_code } = data.results[0];
+      return { latitude, longitude, name, country, timezone, country_code };
     }
     return null;
   } catch (error) {
     console.error('Error fetching coordinates:', error);
     return null;
+  }
+};
+
+export const getCityNameFromCoordinates = async (lat, lon) => {
+  try {
+    const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch city name');
+    }
+    const data = await response.json();
+    const city = data.city || data.locality || data.principalSubdivision;
+    const country = data.countryName;
+    
+    return {
+      name: city || "Unknown Location",
+      country: country || ""
+    };
+  } catch (error) {
+    console.error('Error fetching city name:', error);
+    return { name: "Current Location", country: "" };
+  }
+};
+
+/**
+ * Searches for cities matching the query.
+ * @param {string} query - The search query.
+ * @returns {Promise<Array>} - Array of city objects.
+ */
+export const searchCities = async (query) => {
+  try {
+    const response = await fetch(`${GEOCODING_API_URL}?name=${encodeURIComponent(query)}&count=50&language=en&format=json`);
+    if (!response.ok) {
+      throw new Error('Failed to search cities');
+    }
+    const data = await response.json();
+    if (data.results && data.results.length > 0) {
+      return data.results.map(result => ({
+        latitude: result.latitude,
+        longitude: result.longitude,
+        name: result.name,
+        country: result.country,
+        timezone: result.timezone,
+        country_code: result.country_code,
+        admin1: result.admin1 // Region/State
+      }));
+    }
+    return [];
+  } catch (error) {
+    console.error('Error searching cities:', error);
+    return [];
   }
 };
 
