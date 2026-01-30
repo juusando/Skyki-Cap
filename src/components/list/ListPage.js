@@ -13,6 +13,7 @@ const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, ope
     const timerRef = useRef(null);
     const isReordering = useRef(false);
     const startPos = useRef({ x: 0, y: 0 });
+    const [isDragging, setIsDragging] = useState(false);
     
     // Stable ID for this card
     const cardId = location.isCurrentLocation 
@@ -74,6 +75,9 @@ const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, ope
                 // Ignore potential start failures if context is lost
             }
 
+            // Force reset x to 0 immediately to fix any visual slide
+            controls.start({ x: 0, transition: { duration: 0 } });
+
             // Fix: Reset slide (close any open card) when long press triggers
             // Only update if actually needed to avoid unnecessary renders
             if (openCardId !== null) {
@@ -128,9 +132,19 @@ const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, ope
             value={city}
             dragListener={false}
             dragControls={dragControls}
-            className="swipeable-item-container"
-            whileDrag={{ scale: 1.02, zIndex: 10 }}
+            className={`swipeable-item-container ${isDragging ? 'dragging' : ''}`}
+            whileDrag={{ 
+                scale: 1.02, 
+                boxShadow: "0px 7px 16px rgba(0,0,0,0.15)",
+                borderRadius: "20px"
+            }}
+            onDragStart={() => setIsDragging(true)}
             onDragEnd={() => {
+                // Force instant reset of motion value and controls
+                x.set(0);
+                controls.start({ x: 0, transition: { duration: 0 } });
+                
+                setIsDragging(false);
                 isReordering.current = false;
                 toggleScrollLock(false);
             }}
@@ -140,15 +154,15 @@ const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, ope
                     e.stopPropagation();
                     onDelete(index);
                 }}>
-                    <SvgIcon name="trash" style={{ width: 32, height: 32, fill: 'white', stroke: 'white' }} />
+                    <SvgIcon name="trash"/>
                 </button>
             </div>
             
             <motion.div
                 className="weather-card"
-                style={{ x, touchAction: "pan-y" }}
+                style={{ x: isDragging ? 0 : x }}
                 animate={controls}
-                drag="x"
+                drag={isDragging ? false : "x"}
                 dragConstraints={{ left: -100, right: 0 }}
                 dragElastic={{ right: 0, left: 0.1 }} // Prevent dragging right
                 onPointerDown={handlePointerDown}
@@ -210,11 +224,14 @@ const ListPage = ({ cities, settings, onClose, onSelectCity, onDeleteCity, onReo
   const listRef = useRef(null);
 
   const toggleScrollLock = (locked) => {
-    if (listRef.current) {
-        listRef.current.style.overflowY = locked ? 'hidden' : 'auto';
-        listRef.current.style.touchAction = locked ? 'none' : 'auto';
-    }
-  };
+      if (listRef.current) {
+          if (locked) {
+              listRef.current.classList.add('scroll-locked');
+          } else {
+              listRef.current.classList.remove('scroll-locked');
+          }
+      }
+    };
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 60000);

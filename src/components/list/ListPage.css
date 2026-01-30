@@ -5,7 +5,7 @@
     width: 100%;
     height: 100%;
     background-color: #eeeef5; /* Light grey background */
-    z-index: 2000;
+    z-index: 999;
     display: flex;
     flex-direction: column;
     padding-top: env(safe-area-inset-top);
@@ -38,9 +38,18 @@
     padding-bottom: 40px;
 }
 
+.list-content.scroll-locked {
+    overflow-y: hidden;
+    touch-action: none;
+}
+
 .swipeable-item-container {
     position: relative;
     list-style: none; /* Remove list bullets */
+}
+
+.swipeable-item-container.dragging {
+    z-index: 1000 !important; /* Force high z-index during drag */
 }
 
 .delete-background {
@@ -69,6 +78,13 @@
     height: 60px;
 }
 
+.delete-button svg {
+    width: 32px;
+    height: 32px;
+    fill: white;
+    stroke: white;
+}
+
 .weather-card {
     background-color: white;
     border-radius: 20px;
@@ -78,7 +94,7 @@
     gap: 16px;
     position: relative;
     z-index: 1; /* Above delete background */
-    /* box-shadow: 0 4px 12px rgba(0,0,0,0.03); */
+    touch-action: pan-y;
 }
 
 .card-top {
