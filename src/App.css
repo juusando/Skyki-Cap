@@ -184,7 +184,7 @@ html, body, #root {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #1B2130;
+  background-color: #ffffff;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -197,7 +197,7 @@ html, body, #root {
   justify-content: center;
   gap: 12px;
   padding: 16px 20px;
-  border-bottom: 1px solid #9195C1;
+  border-bottom: 1px solid #9195C130;
 }
 
 .search-input-wrapper {
@@ -206,31 +206,34 @@ html, body, #root {
   display: flex;
   align-items: center;
   justify-content: start;
-  gap: 6px;
-  background-color: #9195C1;
+  gap: 2px;
+  background-color: #9195C120;
   border-radius: 12px;
   padding: 0 8px;
   width: 80%;
-  height: 46px;
+  height: 52px;
 }
 
 .icon-input {
   min-width: 24px;
   height: 24px;
   color: #9195C1;
-  /* background-color: aliceblue; */
-
 }
 
 .search-input-wrapper input {
   height: 44px;
   background: transparent;
   border: none;
-  color: white;
-  font-size: 16px;
+  color: #3c4065;
+  font-size: 17px;
   outline: none;
   font-family: inherit;
   width: 88%;
+}
+
+.search-input-wrapper input::placeholder {
+  color: #9195C1;
+  opacity: 0.8;
 }
 
 .clear {
@@ -240,7 +243,7 @@ html, body, #root {
 .cancel-btn {
   background: transparent;
   border: none;
-  color: #646791;
+  color: #ff6b6b;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -250,14 +253,14 @@ html, body, #root {
 .search-results {
   flex: 1;
   overflow-y: auto;
-  padding: 0 20px;
+  /* padding: 0 20px; */
 }
 
 .search-message {
   padding: 24px 0;
   text-align: center;
   color: #9195C1;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .results-list {
@@ -272,10 +275,10 @@ html, body, #root {
   width: 100%;
 
   svg{
-    min-width: 22px;
-    height: 22px;
-    color: #9195C1;
-    stroke-width: 1.6;
+    min-width: 20px;
+    height: 20px;
+    color:  #ff6b6b;
+    stroke-width: 1.8;
   }
 }
 
@@ -283,8 +286,8 @@ html, body, #root {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 14px 18px 12px 32px;
+  border-bottom: 1px solid #9195C130;
   cursor: pointer;
   width: 100%;
 }
@@ -303,8 +306,8 @@ html, body, #root {
 
 .result-name {
   font-size: 18px;
-  font-weight: 500;
-  color: white;
+  line-height: 1;
+  color:  #282c47;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
