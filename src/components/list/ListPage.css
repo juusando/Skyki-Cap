@@ -38,6 +38,37 @@
     padding-bottom: 40px;
 }
 
+.swipeable-item-container {
+    position: relative;
+    list-style: none; /* Remove list bullets */
+}
+
+.delete-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 90px; 
+    background-color: #FF3B30; /* iOS Delete Red */
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding-right: 20px; */
+    z-index: 0;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+}
+
 .weather-card {
     background-color: white;
     border-radius: 20px;
@@ -45,6 +76,8 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
+    z-index: 1; /* Above delete background */
     /* box-shadow: 0 4px 12px rgba(0,0,0,0.03); */
 }
 

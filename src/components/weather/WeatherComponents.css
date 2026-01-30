@@ -9,13 +9,13 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  /* background-color: antiquewhite; */
 }
 
 .weather-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 8px;
   width: 100%;
   margin-bottom: 0px;
   padding: 10px 0;
@@ -30,11 +30,12 @@
 }
 
 .city-name {
-  font-size: 24px;
+  font-size: 23px;
   font-family: "outfit-r";
   color: #FF7055; /* Orange-red accent */
   margin: 0;
-  line-height: 1;
+  line-height: .9;
+  text-align: left;
 }
 
 .country-name {
@@ -56,6 +57,7 @@
   font-size: 18px;
   color: #9195C1;
   margin: 0;
+  text-wrap: nowrap;
 }
 
 .time-text {

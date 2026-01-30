@@ -270,6 +270,33 @@ function App() {
     setShowList(false);
   };
 
+  const handleDeleteCity = (index) => {
+    const cityToDelete = cities[index];
+    const newCities = cities.filter((_, i) => i !== index);
+    setCities(newCities);
+    
+    // Adjust currentPage
+    if (currentPage === index) {
+      // If deleted current, go to previous or 0
+      setCurrentPage(Math.max(0, index - 1));
+    } else if (currentPage > index) {
+      // If deleted before current, shift left
+      setCurrentPage(currentPage - 1);
+    }
+    // If deleted after current, no change needed
+  };
+
+  const handleReorderCities = (newCities) => {
+    // Find where the current city moved to
+    const currentCity = cities[currentPage];
+    const newIndex = newCities.findIndex(c => c.location.name === currentCity.location.name && c.location.latitude === currentCity.location.latitude);
+    
+    setCities(newCities);
+    if (newIndex !== -1) {
+      setCurrentPage(newIndex);
+    }
+  };
+
   if (loading) return <div className="App"><main className="App-main">Loading...</main></div>;
 
   return (
@@ -359,6 +386,8 @@ function App() {
           settings={settings}
           onClose={() => setShowList(false)}
           onSelectCity={handleSelectList}
+          onDeleteCity={handleDeleteCity}
+          onReorderCities={handleReorderCities}
         />
       )}
 
