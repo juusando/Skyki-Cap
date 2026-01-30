@@ -1,0 +1,65 @@
+$Green: #00E165;
+$Dark: #261147;
+$Orange: #FF6A56;
+$Yellow: #FEA300;
+$Pink: #FF3A81;
+$Purple: var(--theme-color);
+$Blue: #15A6F8;
+$Text: #513C6A;
+$Red: #D90D3E;
+
+$White: #FFFFFF;
+$W_20: #ffffff31;
+$G_00: #F9FAFC;
+$G_01: #F5F6FA;
+$G_02: #F0F0F9;
+$G_03: #ebebf9;
+$G_04: #DEDEEB;
+$G_05: #CCCEDE;
+$G_06: #BBBDD6;
+$G_07: #ABADC8;
+$G_08: #878BBA;
+
+
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+
+* {
+  color: inherit;
+  margin: 0;
+  font-family: "Outfit";
+  font-weight: 450;
+  font-size: 17px;
+}
+
+body {
+  // display: flex;
+  // align-items: start;
+  // justify-content: center;
+  color: $Text;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+svg {
+  width: 26px;
+  height: 26px;
+  stroke-width: 1.4px;
+}
+
+.hero{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 32px;
+    color: $Text ;
+    padding: 24px 0;
+}

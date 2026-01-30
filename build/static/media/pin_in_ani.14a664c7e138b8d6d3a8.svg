@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Keyshape -->
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <defs>
+        <mask id="Mask-1" style="mask-type: alpha;">
+            <rect width="20.3324" height="22.1022" stroke="none" fill="#bf9292" stroke-linecap="round" stroke-linejoin="round" rx="0" transform="translate(11.5273,10.4066) translate(-10.1662,-9.26069)" style="animation: 0.7s linear both a2_h;"/>
+        </mask>
+    </defs>
+    <style>
+@keyframes a1_t { 0% { transform: translate(12.024127px,11.107px); } 57.1428% { transform: translate(12.024127px,11.107px); animation-timing-function: cubic-bezier(0.42,0,0.58,1); } 85.7142% { transform: translate(11.997586px,15.930172px); } 100% { transform: translate(12.024127px,15.930172px); } }
+@keyframes a0_t { 0% { transform: rotate(0deg) translate(-12.586px,-11.107px); } 28.5714% { transform: rotate(0deg) translate(-12.586px,-11.107px); animation-timing-function: cubic-bezier(0.42,0,0.58,1); } 57.1428% { transform: rotate(-32deg) translate(-12.586px,-11.107px); animation-timing-function: cubic-bezier(0,0,1,1); } 100% { transform: rotate(-32deg) translate(-12.586px,-11.107px); } }
+@keyframes a2_h { 0% { height: 22.1022px; } 57.1429% { height: 22.1022px; animation-timing-function: cubic-bezier(0.42,0,0.58,1); } 85.7143% { height: 22.1376px; } 100% { height: 22.1376px; } }
+@keyframes a3_t { 0% { transform: translate(9.286975px,22.772908px); } 28.5714% { transform: translate(9.286975px,22.772908px); } 100% { transform: translate(9.286975px,22.772908px); } }
+@keyframes a3_v { 0% { visibility: hidden; animation-timing-function: steps(1); } 28.5714% { visibility: hidden; animation-timing-function: steps(1); } 57.1429% { visibility: visible; animation-timing-function: steps(1); } 100% { visibility: visible; animation-timing-function: steps(1); } }
+@keyframes a3_d { 0% { d: path('M2.58182,0L2.58182,0'); } 57.1429% { d: path('M2.58182,0L2.58182,0'); animation-timing-function: cubic-bezier(0.42,0,0.58,1); } 85.7143% { d: path('M5.58182,0L-0.15577,0'); } 100% { d: path('M5.58182,0L-0.15577,0'); } }
+    </style>
+    <g mask="url(#Mask-1)">
+        <g style="animation: 0.7s linear both a1_t;">
+            <path stroke=" currentColor" stroke-linecap="round" stroke-linejoin="round" d="M12.272,15.737L16.332,18.275C19.171,13.866,15.812,9.698,15.812,9.698L17.3,7.45C18.602,7.49,19.925,6.84,20.712,5.652L14.427,1.724C13.64,2.912,13.59,4.337,14.157,5.486L12.67,7.734C12.67,7.734,7.3,6.448,4.46,10.856L10.396,14.566M12.272,15.737L10.396,14.565M12.272,15.737L12.274,15.738L10.396,14.565M12.272,15.737L6.714,20.49L8.519,13.393L10.396,14.566" transform="translate(12.0241,11.107) translate(-12.586,-11.107)" style="animation: 0.7s linear both a0_t;"/>
+        </g>
+        <path stroke="#be5050" stroke-linecap="round" stroke-linejoin="round" d="M14.21,15.025L19,15.025C19.07,9.783,14.012,8.027,14.012,8.027L14.085,5.333C15.21,4.677,15.988,3.424,16.025,2L8.615,2C8.577,3.424,9.289,4.66,10.379,5.333L10.307,8.027C10.307,8.027,5.07,9.783,5,15.025L12,15.025M14.21,15.025L12,15.025M14.21,15.025L14.213,15.025L11.999,15.025M14.211,15.025L12.016,22L9.786,15.025L12,15.025" fill="none" display="none" transform="translate(12.0004,12) translate(-12.0004,-12)"/>
+        <path d="M2.58182,0L2.58182,0" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" visibility="hidden" transform="translate(11.8704,22.7647) translate(-2.58338,0.00819163)" style="animation: 0.7s linear both a3_t, 0.7s linear forwards a3_v, 0.7s linear both a3_d;"/>
+    </g>
+</svg>
