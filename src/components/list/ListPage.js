@@ -5,7 +5,7 @@ import WeatherDetails from '../weather/WeatherDetails';
 import { getWeatherIconName } from '../weather/weatherUtils';
 import './ListPage.css';
 
-const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, openCardId, setOpenCardId }) => {
+const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, openCardId, setOpenCardId, toggleScrollLock }) => {
     const { location, weatherData } = city;
     const dragControls = useDragControls();
     const x = useMotionValue(0);
@@ -61,7 +61,11 @@ const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, ope
         if (e.persist) e.persist();
 
         timerRef.current = setTimeout(() => {
+            timerRef.current = null;
             isReordering.current = true;
+            
+            // Lock scroll to prevent browser interference during reorder
+            toggleScrollLock(true);
             
             // Start drag FIRST, before any state updates
             try {
@@ -94,7 +98,14 @@ const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, ope
     };
 
     const cancelLongPress = () => {
-        if (timerRef.current) clearTimeout(timerRef.current);
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+            timerRef.current = null;
+        } else if (isReordering.current) {
+            // Safety: If reorder triggered but drag didn't take over (e.g. long tap), unlock scroll
+            toggleScrollLock(false);
+            isReordering.current = false;
+        }
     };
 
     const handleDragEnd = (event, info) => {
@@ -119,6 +130,10 @@ const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, ope
             dragControls={dragControls}
             className="swipeable-item-container"
             whileDrag={{ scale: 1.02, zIndex: 10 }}
+            onDragEnd={() => {
+                isReordering.current = false;
+                toggleScrollLock(false);
+            }}
         >
             <div className="delete-background">
                 <button className="delete-button" onClick={(e) => {
@@ -192,6 +207,14 @@ const SwipeableCityCard = ({ city, index, settings, now, onSelect, onDelete, ope
 const ListPage = ({ cities, settings, onClose, onSelectCity, onDeleteCity, onReorderCities }) => {
   const [now, setNow] = useState(new Date());
   const [openCardId, setOpenCardId] = useState(null);
+  const listRef = useRef(null);
+
+  const toggleScrollLock = (locked) => {
+    if (listRef.current) {
+        listRef.current.style.overflowY = locked ? 'hidden' : 'auto';
+        listRef.current.style.touchAction = locked ? 'none' : 'auto';
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 60000);
@@ -200,7 +223,14 @@ const ListPage = ({ cities, settings, onClose, onSelectCity, onDeleteCity, onReo
 
   return (
     <div className="list-page">
-      <Reorder.Group as="div" axis="y" values={cities} onReorder={onReorderCities} className="list-content">
+      <Reorder.Group 
+        ref={listRef}
+        as="div" 
+        axis="y" 
+        values={cities} 
+        onReorder={onReorderCities} 
+        className="list-content"
+      >
         {cities.map((city, index) => {
             const key = city.location.isCurrentLocation 
                 ? 'current-location' 
@@ -217,6 +247,7 @@ const ListPage = ({ cities, settings, onClose, onSelectCity, onDeleteCity, onReo
                  onDelete={onDeleteCity}
                  openCardId={openCardId}
                  setOpenCardId={setOpenCardId}
+                 toggleScrollLock={toggleScrollLock}
                />
             );
         })}
