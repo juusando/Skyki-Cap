@@ -4,7 +4,7 @@ import { getWeatherIconName } from './weatherUtils';
 import SvgIcon from '../SvgIcon';
 import '../weather/WeatherComponents.css';
 
-const WeeklyForecast = ({ daily, tempUnit }) => {
+const WeeklyForecast = React.memo(({ daily, tempUnit }) => {
   if (!daily) return null;
 
   const convertTemp = (t) => {
@@ -41,6 +41,6 @@ const WeeklyForecast = ({ daily, tempUnit }) => {
       })}
     </div>
   );
-};
+});
 
 export default WeeklyForecast;

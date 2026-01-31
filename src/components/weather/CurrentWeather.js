@@ -4,7 +4,7 @@ import { getWeatherIconName, getWeatherDescription } from './weatherUtils';
 import SvgIcon from '../SvgIcon';
 import '../weather/WeatherComponents.css';
 
-const CurrentWeather = ({ current, daily, units, tempUnit }) => {
+const CurrentWeather = React.memo(({ current, daily, units, tempUnit }) => {
   if (!current || !daily) return null;
 
   const weatherCode = current.weather_code;
@@ -38,6 +38,6 @@ const CurrentWeather = ({ current, daily, units, tempUnit }) => {
       </div>
     </div>
   );
-};
+});
 
 export default CurrentWeather;

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import '../weather/WeatherComponents.css';
 
-const WeatherHeader = ({ location }) => {
+const WeatherHeader = React.memo(({ location }) => {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
@@ -47,6 +47,6 @@ const WeatherHeader = ({ location }) => {
       </div>
     </div>
   );
-};
+});
 
 export default WeatherHeader;

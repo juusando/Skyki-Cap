@@ -1,4 +1,4 @@
-import { useEffect, useState, useLayoutEffect } from 'react';
+import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import { Geolocation } from '@capacitor/geolocation';
 import SvgIcon from './components/SvgIcon';
 import './App.css';
@@ -31,6 +31,10 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showList, setShowList] = useState(false);
   const [loading, setLoading] = useState(true);
+  
+  // Track if this is a fresh install before effects run
+  const isFreshInstallRef = useRef(!localStorage.getItem('weatherAppSettings') && !localStorage.getItem('savedCities'));
+
   const [settings, setSettings] = useState(() => {
     const saved = localStorage.getItem('weatherAppSettings');
     const initialValue = saved ? JSON.parse(saved) : {};
@@ -66,31 +70,33 @@ function App() {
   }, [settings]);
 
   // Swipe state
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
+  const touchStartRef = useRef(null);
+  const touchEndRef = useRef(null);
   const minSwipeDistance = 50;
 
   const onTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart({
+    touchEndRef.current = null;
+    touchStartRef.current = {
       x: e.targetTouches[0].clientX,
       y: e.targetTouches[0].clientY
-    });
+    };
   };
 
   const onTouchMove = (e) => {
-    setTouchEnd({
+    touchEndRef.current = {
       x: e.targetTouches[0].clientX,
       y: e.targetTouches[0].clientY
-    });
+    };
   };
 
   const onTouchEnd = () => {
-    if (!touchStart) return;
+    if (!touchStartRef.current) return;
 
-    const currentTouchEnd = touchEnd || touchStart;
-    const distanceX = touchStart.x - currentTouchEnd.x;
-    const distanceY = touchStart.y - currentTouchEnd.y;
+    const currentTouchStart = touchStartRef.current;
+    const currentTouchEnd = touchEndRef.current || currentTouchStart;
+    
+    const distanceX = currentTouchStart.x - currentTouchEnd.x;
+    const distanceY = currentTouchStart.y - currentTouchEnd.y;
     const isSwipe = Math.abs(distanceX) > minSwipeDistance;
 
     if (isSwipe) {
@@ -109,13 +115,17 @@ function App() {
         const width = window.innerWidth;
         const tapZone = width * 0.3; // 30% from edge
 
-        if (touchStart.x < tapZone && currentPage > 0) {
+        if (currentTouchStart.x < tapZone && currentPage > 0) {
           setCurrentPage(curr => curr - 1);
-        } else if (touchStart.x > (width - tapZone) && currentPage < cities.length - 1) {
+        } else if (currentTouchStart.x > (width - tapZone) && currentPage < cities.length - 1) {
           setCurrentPage(curr => curr + 1);
         }
       }
     }
+    
+    // Reset refs
+    touchStartRef.current = null;
+    touchEndRef.current = null;
   };
 
   // Helper to fetch weather for a location and return the city object
@@ -134,59 +144,64 @@ function App() {
   useEffect(() => {
     const init = async () => {
       try {
-        // Settings are now loaded in useState initialization
-        
-        const savedCities = JSON.parse(localStorage.getItem('savedCities') || '[]');
-        let initialCities = [];
-        
-        // 1. Load Saved Cities
-        if (savedCities.length > 0) {
-          const promises = savedCities.map(location => fetchCityData(location));
-          const results = await Promise.all(promises);
-          initialCities = results.filter(city => city !== null);
+        // Try to load cached full data first for instant render
+        const cachedCitiesData = JSON.parse(localStorage.getItem('cachedCitiesData') || '[]');
+        if (cachedCitiesData.length > 0) {
+          setCities(cachedCitiesData);
+          setLoading(false);
         }
 
-        // 2. Handle Current Location if enabled
-        if (settings.useCurrentLocation) {
+        const savedCities = JSON.parse(localStorage.getItem('savedCities') || '[]');
+        
+        let locationsToFetch = [];
+        if (savedCities.length > 0) {
+          locationsToFetch = savedCities;
+        }
+
+        // Determine if we should try auto-location (Fresh Install or explicitly enabled)
+        const shouldTryLocation = settings.useCurrentLocation || isFreshInstallRef.current;
+
+        // Handle Current Location
+        if (shouldTryLocation) {
              try {
-               const position = await Geolocation.getCurrentPosition();
+               // Add timeout to prevent hanging if permission prompt is ignored or location is unavailable
+               const position = await Geolocation.getCurrentPosition({ timeout: 10000, enableHighAccuracy: false });
                const { latitude, longitude } = position.coords;
-               const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                 
                const locationInfo = await getCityNameFromCoordinates(latitude, longitude);
 
-               const location = {
+               const currentLocation = {
                  latitude,
                  longitude,
                  name: locationInfo.name,
                  country: locationInfo.country,
-                 timezone,
+                 timezone: locationInfo.timezone || 'UTC', // Ensure timezone exists
                  isCurrentLocation: true
                };
-               const currentCityData = await fetchCityData(location);
-               if (currentCityData) {
-                 initialCities.unshift(currentCityData);
-                 // Update name in settings
-                 setSettings(prev => ({ ...prev, currentLocationName: locationInfo.name }));
-               }
+               
+               // Add current location to fetch list (at the beginning)
+               locationsToFetch = [currentLocation, ...locationsToFetch];
+               
+               // Update settings
+               setSettings(prev => ({ 
+                   ...prev, 
+                   currentLocationName: locationInfo.name,
+                   useCurrentLocation: true 
+               }));
              } catch (geoError) {
                console.error("Geo error on init", geoError);
-               // If initial load fails, we might want to disable it or just silently fail for now
-               // But let's keep the setting true so it tries again next time or user can toggle it
              }
         }
 
-        // 3. Fallback if empty
-        if (initialCities.length === 0) {
-           const coords = await getCoordinates('Casablanca');
-           if (coords) {
-             const cityData = await fetchCityData(coords);
-             if (cityData) initialCities.push(cityData);
-           }
+        // If we have locations to fetch, do it
+        if (locationsToFetch.length > 0) {
+            const promises = locationsToFetch.map(location => fetchCityData(location));
+            const results = await Promise.all(promises);
+            const validCities = results.filter(city => city !== null);
+            
+            setCities(validCities);
         }
         
-        setCities(initialCities);
-
       } catch (error) {
         console.error("Failed to load initial data", error);
       } finally {
@@ -194,19 +209,28 @@ function App() {
       }
     };
     init();
-  }, []);
+  }, []); // Only run once on mount
 
-  // Save cities to local storage whenever they change
+  // Save cities (including weather data) to local storage whenever they change
   useEffect(() => {
     if (cities.length > 0) {
+      // Save locations list
       const locationsToSave = cities
         .filter(city => !city.location.isCurrentLocation)
         .map(city => city.location);
       localStorage.setItem('savedCities', JSON.stringify(locationsToSave));
+      
+      // Save full data cache
+      localStorage.setItem('cachedCitiesData', JSON.stringify(cities));
     }
   }, [cities]);
 
   const handleAddLocation = async (newLocation) => {
+    if (cities.length >= 9) {
+      alert("You can only add up to 9 weather locations.");
+      return;
+    }
+
     // Check if already exists to avoid duplicates (fuzzy match on coords)
     const index = cities.findIndex(
       city => Math.abs(city.location.latitude - newLocation.latitude) < 0.01 && 
@@ -221,9 +245,13 @@ function App() {
         const newCities = [...cities, cityData];
         setCities(newCities);
         setCurrentPage(newCities.length - 1);
+        setShowList(false); // Ensure we go to the weather view
+        setShowSearch(false); // Close search if open
       }
     } else {
       setCurrentPage(index);
+      setShowList(false); // Ensure we go to the weather view
+      setShowSearch(false); // Close search if open
     }
   };
 
@@ -236,7 +264,7 @@ function App() {
     // Handle Current Location Toggle
     if (newSettings.useCurrentLocation && !prevUseCurrentLocation) {
       try {
-        const position = await Geolocation.getCurrentPosition();
+        const position = await Geolocation.getCurrentPosition({ timeout: 10000, enableHighAccuracy: false });
         const { latitude, longitude } = position.coords;
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         
@@ -257,6 +285,7 @@ function App() {
             setCurrentPage(0);
             // Update name in settings
             setSettings(prev => ({ ...prev, currentLocationName: locationInfo.name }));
+            setShowList(false); // Ensure we go to the weather view
         }
       } catch (error) {
         console.error("Geolocation error:", error);
@@ -295,6 +324,12 @@ function App() {
 
   const handleDeleteCity = (index) => {
     const cityToDelete = cities[index];
+
+    // Sync with settings if deleting current location
+    if (cityToDelete.location.isCurrentLocation) {
+        setSettings(prev => ({ ...prev, useCurrentLocation: false }));
+    }
+
     const newCities = cities.filter((_, i) => i !== index);
     setCities(newCities);
     
@@ -321,6 +356,60 @@ function App() {
   };
 
   if (loading) return <div className="App"><main className="App-main">Loading...</main></div>;
+
+  if (cities.length === 0) {
+      return (
+          <div className="App">
+              <main className="App-main empty-state-container" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', padding: '20px', textAlign: 'center'}}>
+                  <p style={{marginBottom: '20px', fontSize: '18px', color: 'var(--text-primary)'}}>Turn on your location tracking or add a location +</p>
+                  
+                  <button 
+                    className="add-location-btn" 
+                    onClick={() => handleUpdateSettings({ ...settings, useCurrentLocation: true })}
+                    style={{
+                      marginBottom: '15px',
+                      padding: '10px 20px',
+                      fontSize: '16px',
+                      borderRadius: '20px',
+                      border: 'none',
+                      background: 'var(--theme-color)',
+                      color: '#fff',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Add my location
+                  </button>
+
+                  <button 
+                    className="add-location-btn" 
+                    onClick={() => setShowSearch(true)}
+                    style={{
+                      padding: '10px 20px',
+                      fontSize: '16px',
+                      borderRadius: '20px',
+                      border: '2px solid var(--theme-color)',
+                      background: 'transparent',
+                      color: 'var(--theme-color)',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Add Location +
+                  </button>
+                  {showSearch && (
+                      <div className="modal-overlay">
+                          <SearchPage 
+                              onClose={() => setShowSearch(false)} 
+                              onAddLocation={(loc) => {
+                                  handleAddLocation(loc);
+                                  setShowSearch(false);
+                              }} 
+                          />
+                      </div>
+                  )}
+              </main>
+          </div>
+      );
+  }
 
   return (
     <div className="App">
@@ -352,10 +441,14 @@ function App() {
       {/* Footer Navigation */}
       <footer className="app-footer">
         {/* Left Button (Menu placeholder) */}
+        <div style={{ display: 'flex', gap: '0px', pointerEvents: 'auto' }}>
         <button className="footer-btn" aria-label="Menu" onClick={() => setShowSettings(true)}>
           <SvgIcon name="hum"  />
         </button>
-        
+                <button className="footer-btn" >
+       
+        </button>
+          </div>
         {/* Pagination Dots */}
         <div className="pagination-dots">
           {cities.map((_, index) => (
