@@ -34,7 +34,7 @@ const WeeklyForecast = React.memo(({ daily, tempUnit }) => {
             <span className="forecast-temp-high">{Math.round(convertTemp(day.maxTemp))}°</span>
             <span className="forecast-temp-low">{Math.round(convertTemp(day.minTemp))}°</span>
             <div className="forecast-icon">
-              <SvgIcon name={getWeatherIconName(day.weatherCode, 1)} className="weather-icon small" style={{ width: 24, height: 24 }} />
+              <SvgIcon name={getWeatherIconName(day.weatherCode, 1)} className="weather-icon small" />
             </div>
           </div>
         );

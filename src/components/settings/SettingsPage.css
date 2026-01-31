@@ -293,7 +293,14 @@
   cursor: pointer;
   transition: transform 0.2s, border-color 0.2s;
   padding: 0;
+  /* background-color: var(--btn-color); */
 }
+
+.color-btn.theme-red { background-color: #ff6b6b; }
+.color-btn.theme-teal { background-color: #1AB291; }
+.color-btn.theme-blue { background-color: #1A83ED; }
+.color-btn.theme-orange { background-color: #F99908; }
+.color-btn.theme-purple { background-color: #8A3EE2; }
 
 .color-btn.active {
   background-color: #ffffff !important;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SvgIcon from '../SvgIcon';
 import { searchCities } from '../../services/weatherService';
 
-const SearchPage = ({ onClose, onAddLocation }) => {
+const SearchPage = ({ onClose, onAddLocation, citiesCount = 0, onOpenList }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,6 +33,37 @@ const SearchPage = ({ onClose, onAddLocation }) => {
       document.activeElement.blur();
     }
   };
+
+  if (citiesCount >= 9) {
+    return (
+      <div className="search-page">
+
+        <div className="limit-state-container">
+                      <div className="skyki-logo">
+                        <SvgIcon name="skyki" className="logo-mark" />
+                        SKYKI
+                      </div>
+          <div className="limit-text">
+            You cannot add more than 9 locations. Please go to the list page and delete existing locations.
+          </div>
+          
+                <div className='buttons-box'>
+          <button className="add-location-btn"  onClick={onOpenList} >
+            Open List Page
+            <SvgIcon name="hum2" />
+          </button>
+
+          <button className="add-location-btn secondary"  onClick={onClose} >
+            Back
+            <SvgIcon name="back" />
+          </button>
+          </div>
+
+
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="search-page">

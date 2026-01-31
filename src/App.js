@@ -359,55 +359,47 @@ function App() {
 
   if (cities.length === 0) {
       return (
-          <div className="App">
-              <main className="App-main empty-state-container" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', padding: '20px', textAlign: 'center'}}>
-                  <p style={{marginBottom: '20px', fontSize: '18px', color: 'var(--text-primary)'}}>Turn on your location tracking or add a location +</p>
-                  
-                  <button 
-                    className="add-location-btn" 
-                    onClick={() => handleUpdateSettings({ ...settings, useCurrentLocation: true })}
-                    style={{
-                      marginBottom: '15px',
-                      padding: '10px 20px',
-                      fontSize: '16px',
-                      borderRadius: '20px',
-                      border: 'none',
-                      background: 'var(--theme-color)',
-                      color: '#fff',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Add my location
-                  </button>
+        <div className="App">
+          <main className="App-main empty-state-container">
+            <div className="skyki-logo">
+              <SvgIcon name="skyki" className="logo-mark" />
+              SKYKI
+            </div>
 
-                  <button 
-                    className="add-location-btn" 
-                    onClick={() => setShowSearch(true)}
-                    style={{
-                      padding: '10px 20px',
-                      fontSize: '16px',
-                      borderRadius: '20px',
-                      border: '2px solid var(--theme-color)',
-                      background: 'transparent',
-                      color: 'var(--theme-color)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Add Location +
-                  </button>
-                  {showSearch && (
-                      <div className="modal-overlay">
-                          <SearchPage 
-                              onClose={() => setShowSearch(false)} 
-                              onAddLocation={(loc) => {
-                                  handleAddLocation(loc);
-                                  setShowSearch(false);
-                              }} 
-                          />
-                      </div>
-                  )}
-              </main>
-          </div>
+            {/* <div className="empty-state-text">Turn on your location tracking or add a location +</div> */}
+
+            <div className='buttons-box'>
+              <button
+                className="add-location-btn"
+                onClick={() => handleUpdateSettings({ ...settings, useCurrentLocation: true })}
+              >
+                My Current Location
+                 <SvgIcon name="flag" />
+              </button>
+
+              <button
+                className="add-location-btn secondary"
+                onClick={() => setShowSearch(true)}
+              >
+                Search & Add Location
+                 <SvgIcon name="add" />
+              </button>
+            </div>
+
+
+            {showSearch && (
+              <div className="modal-overlay">
+                <SearchPage
+                  onClose={() => setShowSearch(false)}
+                  onAddLocation={(loc) => {
+                    handleAddLocation(loc);
+                    setShowSearch(false);
+                  }}
+                />
+              </div>
+            )}
+          </main>
+        </div>
       );
   }
 
@@ -441,7 +433,7 @@ function App() {
       {/* Footer Navigation */}
       <footer className="app-footer">
         {/* Left Button (Menu placeholder) */}
-        <div style={{ display: 'flex', gap: '0px', pointerEvents: 'auto' }}>
+        <div className="footer-btn-group">
         <button className="footer-btn" aria-label="Menu" onClick={() => setShowSettings(true)}>
           <SvgIcon name="hum"  />
         </button>
@@ -461,7 +453,7 @@ function App() {
           ))}
         </div>
 
-        <div style={{ display: 'flex', gap: '0px', pointerEvents: 'auto' }}>
+        <div className="footer-btn-group">
           <button 
             className="footer-btn" 
             onClick={() => setShowList(true)}
@@ -483,7 +475,12 @@ function App() {
       {showSearch && (
         <SearchPage 
           onClose={() => setShowSearch(false)} 
-          onAddLocation={handleAddLocation} 
+          onAddLocation={handleAddLocation}
+          citiesCount={cities.length}
+          onOpenList={() => {
+            setShowList(true);
+            setShowSearch(false);
+          }}
         />
       )}
 

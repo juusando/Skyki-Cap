@@ -90,11 +90,16 @@ const SettingsPage = ({ settings, onUpdateSettings, onClose }) => {
         <div className="setting-item">
           <span className="setting-label">Theme</span>
           <div className="color-picker-group">
-            {['#ff6b6b', '#1AB291', '#1A83ED', '#F99908', '#8A3EE2'].map(color => (
+            {[
+              { color: '#ff6b6b', name: 'theme-red' },
+              { color: '#1AB291', name: 'theme-teal' },
+              { color: '#1A83ED', name: 'theme-blue' },
+              { color: '#F99908', name: 'theme-orange' },
+              { color: '#8A3EE2', name: 'theme-purple' }
+            ].map(({ color, name }) => (
               <button
                 key={color}
-                className={`color-btn ${settings.themeColor === color ? 'active' : ''}`}
-                style={{ backgroundColor: color }}
+                className={`color-btn ${name} ${settings.themeColor === color ? 'active' : ''}`}
                 onClick={() => onUpdateSettings({ ...settings, themeColor: color })}
                 aria-label={`Select theme color ${color}`}
               />

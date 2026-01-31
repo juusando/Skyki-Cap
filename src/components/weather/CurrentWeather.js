@@ -22,13 +22,13 @@ const CurrentWeather = React.memo(({ current, daily, units, tempUnit }) => {
   return (
     <div className="current-weather-section">
       <div className="main-icon">
-        <SvgIcon name={iconName} className="weather-icon main" style={{ width: 80, height: 80 }} />
+        <SvgIcon name={iconName} className="weather-icon main" />
          <h2 className="weather-condition">{description}</h2>
       </div>
      
       <div className="big-temperature">
-        <div className="minus" style={{ display: roundedTemp < 0 ? 'flex' : 'none' }}>-</div>
-        <span className="degree-symbol ghost" style={{ display: roundedTemp < 0 ? 'none' : undefined }}>°</span>
+        <div className={`minus ${roundedTemp < 0 ? 'visible' : ''}`}>-</div>
+        {roundedTemp >= 0 && <span className="degree-symbol ghost">°</span>}
         {Math.abs(roundedTemp)}
         <span className="degree-symbol">°</span>
       </div>

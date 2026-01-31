@@ -62,7 +62,7 @@ const WeatherDetails = ({ current, daily, units, speedUnit }) => {
       </div>
       
       <div className="detail-item">
-        <div className="detail-icon wind-box"><SvgIcon name="wind-direction" style={{ transform: `rotate(${current.wind_direction_10m - 45}deg)` }} /></div>
+        <div className="detail-icon wind-box"><SvgIcon name="wind-direction" style={{ '--wind-rotation': `${current.wind_direction_10m - 45}deg` }} /></div>
         <div className="detail-text">
         {getWindDirection(current.wind_direction_10m)} 
           <span className="detail-value">{current.wind_direction_10m}°</span>
