@@ -2,6 +2,24 @@
 
 :root {
   --theme-color: #ff6b6b;
+  --bg-page: #ffffff;
+  --bg-list: #eeeef5;
+  --bg-item: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #3c4065;
+  --text-secondary: #9195c1b0;
+  --text-icon: #9a9dc4da;
+}
+
+.dark-mode {
+  --bg-page: #171f31;
+  --bg-list: #1B2130;
+  --bg-item: #171f31; 
+  --bg-card: #0e1421; 
+  --text-primary: #9a9dc4c3;
+  --text-secondary: #4d5178;
+  --text-icon: #9a9dc45c;
+
 }
 
 * {
@@ -14,11 +32,13 @@ html, body, #root {
   padding: 0;
   overflow: hidden;
   font-family: 'outfit-r';
+  background-color: var(--bg-page);
+  color: var(--text-primary);
 }
 
 .App {
   text-align: center;
-  /* background-color: #1B2130; */
+  background-color: var(--bg-page);
   height: 100%;
   position: fixed;
   top: 0;
@@ -55,7 +75,7 @@ html, body, #root {
   align-items: center;
   justify-content: flex-start;
   color: white;
-  padding: 20px 8px 0;
+  padding: 8px 8px 0;
   /* Add safe area inset to bottom padding plus extra space */
   /* padding-bottom: calc(80px + env(safe-area-inset-bottom));  */
   -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
@@ -188,7 +208,7 @@ html, body, #root {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ffffff;
+  background-color: var(--bg-page);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -228,7 +248,7 @@ html, body, #root {
   height: 44px;
   background: transparent;
   border: none;
-  color: #3c4065;
+  color: var(--text-primary);
   font-size: 17px;
   outline: none;
   font-family: inherit;
@@ -236,7 +256,7 @@ html, body, #root {
 }
 
 .search-input-wrapper input::placeholder {
-  color: #9195C1;
+  color: var(--text-secondary);
   opacity: 0.8;
 }
 
@@ -263,7 +283,7 @@ html, body, #root {
 .search-message {
   padding: 24px 0;
   text-align: center;
-  color: #9195C1;
+  color: var(--text-secondary);
   font-size: 16px;
 }
 
@@ -291,7 +311,7 @@ html, body, #root {
   align-items: center;
   gap: 12px;
   padding: 14px 18px 12px 32px;
-  border-bottom: 1px solid #9195C130;
+  border-bottom: 1px solid #6369a720;
   cursor: pointer;
   width: 100%;
 }
@@ -311,7 +331,7 @@ html, body, #root {
 .result-name {
   font-size: 18px;
   line-height: 1;
-  color:  #282c47;
+  color:   var(--theme-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

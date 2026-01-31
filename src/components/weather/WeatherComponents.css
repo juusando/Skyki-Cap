@@ -8,7 +8,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  /* gap: 8px; */
 }
 
 .weather-header {
@@ -18,7 +18,7 @@
   gap: 8px;
   width: 100%;
   margin-bottom: 0px;
-  padding: 10px 0;
+  /* padding: 10px 0; */
 }
 
 .location-info {
@@ -63,8 +63,10 @@
 .time-text {
   font-family: 'bebas-r';
   font-size: 28px;
+  line-height: 1;
   color: var(--theme-color);
   margin: 0;
+  height: 22px;
 }
 
 /* Current Weather */
@@ -191,7 +193,7 @@
   justify-items: start;
   justify-content: center;
   gap: 8px;
-  color: #9195C1;
+  color: var(--text-icon);
   overflow: hidden;
   flex: 1;
   min-height: 36px;
@@ -241,7 +243,7 @@
   font-family: 'outfit-m';
   font-size: 13px;
   line-height: 2.2;
-  color: #9195C1;
+  color: var(--text-secondary);
 }
 
 .forecast-temp-high {
@@ -261,7 +263,7 @@
 }
 
 .forecast-icon {
-  color: #9195C1;
+  color: var(--text-secondary);
     svg{
   width: 26px;
   height: 26px;

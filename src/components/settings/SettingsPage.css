@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #ffffff; /* Match App background */
+  background-color: var(--bg-page); /* Match App background */
   z-index: 2000;
   display: flex;
   flex-direction: column;
@@ -51,7 +51,7 @@
   flex-direction: column;
   gap: 1px;
   padding: 1px 0;
-  background-color:  #878BBA40;
+  background-color:  #6369a720;
 }
 
 .setting-item {
@@ -59,19 +59,19 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px ;
-  background-color: #ffffff;
+  background-color: var(--bg-item);
 }
 
 .setting-label-group {
   display: flex;
   flex-direction: column;
-    align-items: flex-start;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 4px;
 }
 
 .setting-label {
-  color: #878BBA; /* Muted text color */
+  color: var(--text-secondary); /* Muted text color */
   font-size: 17px;
 }
 

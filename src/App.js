@@ -42,16 +42,23 @@ function App() {
       speedUnit: 'km',
       currentLocationName: '',
       themeColor: '#ff6b6b',
+      darkMode: false,
       ...initialValue
     };
   });
 
-  // Apply theme immediately to prevent flash
+  // Apply theme and dark mode immediately
   useLayoutEffect(() => {
     if (settings.themeColor) {
       document.documentElement.style.setProperty('--theme-color', settings.themeColor);
     }
-  }, [settings.themeColor]);
+    
+    if (settings.darkMode) {
+      document.documentElement.classList.add('dark-mode');
+    } else {
+      document.documentElement.classList.remove('dark-mode');
+    }
+  }, [settings.themeColor, settings.darkMode]);
 
   // Save settings to local storage whenever they change
   useEffect(() => {

@@ -101,6 +101,25 @@ const SettingsPage = ({ settings, onUpdateSettings, onClose }) => {
             ))}
           </div>
         </div>
+
+        {/* Light/Dark Mode Section */}
+        <div className="setting-item">
+          <span className="setting-label">Light/Dark mode</span>
+          <div className="toggle-group">
+            <button 
+              className={`toggle-btn ${!settings.darkMode ? 'active' : ''}`} 
+              onClick={() => onUpdateSettings({ ...settings, darkMode: false })}
+            >
+              Light
+            </button>
+            <button 
+              className={`toggle-btn ${settings.darkMode ? 'active' : ''}`} 
+              onClick={() => onUpdateSettings({ ...settings, darkMode: true })}
+            >
+              Dark
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
