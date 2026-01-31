@@ -1,5 +1,9 @@
 @import './assets/styles/fonts.css';
 
+:root {
+  --theme-color: #ff6b6b;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -94,7 +98,7 @@ html, body, #root {
 }
 
 .error {
-  color: #ff6b6b;
+  color: var(--theme-color);
 }
 
 /* Slider & Layout */
@@ -147,7 +151,7 @@ html, body, #root {
 }
 
 .dot.active {
-  background-color:  #ff6b6b;
+  background-color:  var(--theme-color);
   transform: scale(1.1);
 }
 
@@ -243,7 +247,7 @@ html, body, #root {
 .cancel-btn {
   background: transparent;
   border: none;
-  color: #ff6b6b;
+  color: var(--theme-color);
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -277,7 +281,7 @@ html, body, #root {
   svg{
     min-width: 20px;
     height: 20px;
-    color:  #ff6b6b;
+    color:  var(--theme-color);
     stroke-width: 1.8;
   }
 }

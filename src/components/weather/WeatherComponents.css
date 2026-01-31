@@ -32,7 +32,7 @@
 .city-name {
   font-size: 23px;
   font-family: "outfit-r";
-  color: #FF7055; /* Orange-red accent */
+  color: var(--theme-color); /* Orange-red accent */
   margin: 0;
   line-height: .9;
   text-align: left;
@@ -63,7 +63,7 @@
 .time-text {
   font-family: 'bebas-r';
   font-size: 28px;
-  color: tomato;
+  color: var(--theme-color);
   margin: 0;
 }
 
@@ -83,7 +83,7 @@
 }
 
 .main-icon {
-  color: tomato;
+  color: var(--theme-color);
    display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,7 +111,7 @@
   font-family: 'bebas-r';
   font-size: 160px;
   line-height: 1;
-  color: tomato;
+  color: var(--theme-color);
   display: flex;
   align-items: flex-start;
   height: fit-content;
@@ -152,7 +152,7 @@
 }
 
 .temp-range-simple .high {
-  color: tomato;
+  color: var(--theme-color);
 }
 
 /* Weather Details */
@@ -178,9 +178,9 @@
   flex-direction: column;
   align-items: center;
   gap: 2px;
-    font-family: 'bebas-r';
+  font-family: 'bebas-r';
   font-size: 20px;
-  color: tomato;
+  color: var(--theme-color);
 
 }
 
@@ -190,10 +190,11 @@
   align-items: center;
   justify-items: start;
   justify-content: center;
+  gap: 8px;
   color: #9195C1;
   overflow: hidden;
   flex: 1;
-  height: 36px;
+  min-height: 36px;
   padding: 2px 8px;
 
   svg{
@@ -205,16 +206,16 @@
 
 
 .detail-text{
-   display: flex;
+  display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   gap: 2px;
 }
 
 .detail-value {
   font-family: 'bebas-r';
-  font-size: 14px;
-  color: tomato;
+  font-size: 20px;
+  color: var(--theme-color);
 }
 
 /* Weekly Forecast */
@@ -247,7 +248,7 @@
   font-family: 'bebas-r';
   font-size: 24px;
   line-height: .7;;
-  color: tomato;
+  color: var(--theme-color);
   margin-left: 4px;
 }
 

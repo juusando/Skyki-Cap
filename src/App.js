@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { Geolocation } from '@capacitor/geolocation';
 import SvgIcon from './components/SvgIcon';
 import './App.css';
@@ -31,12 +31,32 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showList, setShowList] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [settings, setSettings] = useState({
-    useCurrentLocation: false,
-    tempUnit: 'C',
-    speedUnit: 'km',
-    currentLocationName: ''
+  const [settings, setSettings] = useState(() => {
+    const saved = localStorage.getItem('weatherAppSettings');
+    const initialValue = saved ? JSON.parse(saved) : {};
+    
+    // Merge with defaults to ensure all keys exist
+    return {
+      useCurrentLocation: false,
+      tempUnit: 'C',
+      speedUnit: 'km',
+      currentLocationName: '',
+      themeColor: '#ff6b6b',
+      ...initialValue
+    };
   });
+
+  // Apply theme immediately to prevent flash
+  useLayoutEffect(() => {
+    if (settings.themeColor) {
+      document.documentElement.style.setProperty('--theme-color', settings.themeColor);
+    }
+  }, [settings.themeColor]);
+
+  // Save settings to local storage whenever they change
+  useEffect(() => {
+    localStorage.setItem('weatherAppSettings', JSON.stringify(settings));
+  }, [settings]);
 
   // Swipe state
   const [touchStart, setTouchStart] = useState(null);
@@ -107,11 +127,8 @@ function App() {
   useEffect(() => {
     const init = async () => {
       try {
-        const savedSettings = JSON.parse(localStorage.getItem('weatherAppSettings'));
-        if (savedSettings) {
-          setSettings(savedSettings);
-        }
-
+        // Settings are now loaded in useState initialization
+        
         const savedCities = JSON.parse(localStorage.getItem('savedCities') || '[]');
         let initialCities = [];
         
@@ -123,7 +140,7 @@ function App() {
         }
 
         // 2. Handle Current Location if enabled
-        if (savedSettings?.useCurrentLocation) {
+        if (settings.useCurrentLocation) {
              try {
                const position = await Geolocation.getCurrentPosition();
                const { latitude, longitude } = position.coords;
@@ -206,7 +223,8 @@ function App() {
   const handleUpdateSettings = async (newSettings) => {
     const prevUseCurrentLocation = settings.useCurrentLocation;
     setSettings(newSettings);
-    localStorage.setItem('weatherAppSettings', JSON.stringify(newSettings));
+    
+    // Theme application is handled by useLayoutEffect now
 
     // Handle Current Location Toggle
     if (newSettings.useCurrentLocation && !prevUseCurrentLocation) {
@@ -232,14 +250,12 @@ function App() {
             setCurrentPage(0);
             // Update name in settings
             setSettings(prev => ({ ...prev, currentLocationName: locationInfo.name }));
-            localStorage.setItem('weatherAppSettings', JSON.stringify({ ...newSettings, currentLocationName: locationInfo.name }));
         }
       } catch (error) {
         console.error("Geolocation error:", error);
         alert("Failed to get current location. Please ensure location services are enabled.");
         const revertedSettings = { ...newSettings, useCurrentLocation: false };
         setSettings(revertedSettings);
-        localStorage.setItem('weatherAppSettings', JSON.stringify(revertedSettings));
       }
     } else if (!newSettings.useCurrentLocation && prevUseCurrentLocation) {
       setCities(prev => prev.filter(c => !c.location.isCurrentLocation));

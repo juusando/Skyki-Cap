@@ -85,6 +85,22 @@ const SettingsPage = ({ settings, onUpdateSettings, onClose }) => {
             </button>
           </div>
         </div>
+
+        {/* Theme Section */}
+        <div className="setting-item">
+          <span className="setting-label">Theme</span>
+          <div className="color-picker-group">
+            {['#ff6b6b', '#1AB291', '#1A83ED', '#F99908', '#8A3EE2'].map(color => (
+              <button
+                key={color}
+                className={`color-btn ${settings.themeColor === color ? 'active' : ''}`}
+                style={{ backgroundColor: color }}
+                onClick={() => onUpdateSettings({ ...settings, themeColor: color })}
+                aria-label={`Select theme color ${color}`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
